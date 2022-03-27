@@ -15,6 +15,8 @@ router.post('/create', async (req, res) => {
             token: token
         });
     } catch(e){
+        console.log(e);
+        console.log(e.message);
         res.status(400).json({error: 'Não foi possível criar o usuário!'});
         return;
     }
