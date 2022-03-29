@@ -15,5 +15,9 @@ const anuncioSchema = new mongoose.Schema({
     },
     loja: {
 
+    },
+    deleted: {
+        type: Boolean,
+        required: true
     }
 });
