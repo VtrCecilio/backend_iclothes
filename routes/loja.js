@@ -39,6 +39,7 @@ router.post('/create-anuncio', async (req, res) => {
         });
         return;
     } catch (e) {
+        console.log(e.message);
         res.status(400).json({
             error: "Não foi possível criar anuncio!"
         });
