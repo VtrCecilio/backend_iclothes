@@ -8,7 +8,7 @@ const Auth = require('./auth');
 // /lojas
 
 router.get('/', async (req, res) => {
-    const lojas = await User.find({tipoUser: "Loja"}, {nome: 1, endereco: 1, _id: 1});
+    const lojas = await User.find({tipoUser: "Loja"});
 
     res.status(200).json(lojas);
     return;
@@ -69,7 +69,7 @@ router.delete('/delete-anuncio', async (req, res) => {
 router.get('/anuncios', async (req, res) => {
     console.log('/lojas/anuncios');
     try {
-        const anuncios = await Anuncio.find({deleted: false});
+        const anuncios = await Anuncio.find();
     
         res.status(200).json({
             success: "Anúncios encontrados com sucesso!",
