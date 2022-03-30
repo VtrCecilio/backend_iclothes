@@ -2,8 +2,6 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-const Anuncio = require('./anuncio');
-const VendaAndQtd = require('./vendaAndQtd');
 
 const enderecoSchema = new mongoose.Schema({
     numero: {
@@ -36,7 +34,10 @@ const ticketCompra = new mongoose.Schema({
         type: Number,
         required: true
     },
-    itens: [VendaAndQtd]
+    itens: [{
+        type: mongoose.Types.ObjectId,
+        ref: "VendaAndQtd"
+    }]
 });
 
 const userSchema = new mongoose.Schema({
@@ -60,7 +61,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    anuncios: [Anuncio],
+    anuncios: [{
+        type: mongoose.Types.ObjectId,
+        ref: "Anuncio"
+    }],
     endereco: enderecoSchema,
     tokens: [{
         token: {
