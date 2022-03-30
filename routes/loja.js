@@ -26,12 +26,13 @@ router.get('/:id', async (req, res) => {
 });
 
 router.post('/create-anuncio', async (req, res) => {
-    const anuncio = new Anuncio({...req.body, loja: req.user.id});
+    const anuncio = new Anuncio({...req.body, deleted: false});
 
     try {
         await anuncio.save();
-        req.user.anuncios.push(anuncio);
-        await req.user.save();
+        const user = await User.findOne({_id: req.body.loja});
+        user.anuncios.push(anuncio)
+        await user.save();
 
         res.status(201).json({
             success: "Anunciado criado com sucesso!"
