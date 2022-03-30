@@ -35,7 +35,8 @@ router.post('/create-anuncio', async (req, res) => {
         await user.save();
 
         res.status(201).json({
-            success: "Anunciado criado com sucesso!"
+            success: "Anunciado criado com sucesso!",
+            id: anuncio._id
         });
         return;
     } catch (e) {
