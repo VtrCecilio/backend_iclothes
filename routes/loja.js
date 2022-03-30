@@ -66,6 +66,7 @@ router.delete('/delete-anuncio', async (req, res) => {
 });
 
 router.get('/anuncios', async (req, res) => {
+    console.log('/lojas/anuncios');
     try {
         const anuncios = await Anuncio.find({deleted: false});
     
