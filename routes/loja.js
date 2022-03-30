@@ -14,6 +14,41 @@ router.get('/', async (req, res) => {
     return;
 });
 
+router.get('/anuncios', async (req, res) => {
+    console.log('/lojas/anuncios');
+    try {
+        const anuncios = await Anuncio.find();
+    
+        res.status(200).json({
+            success: "Anúncios encontrados com sucesso!",
+            anuncios: anuncios
+        });
+        return;
+    } catch (e) {
+        res.status(400).json({
+            error: "Não foi possível buscar anúncios!"
+        });      
+        return;
+    }
+});
+
+router.get('/anuncios/:id', async (req, res) => {
+    try {
+        const anuncio = await Anuncio.find({_id: req.params.id});
+
+        res.status(200).json({
+            success: "Anúncio encontrado com sucesso!",
+            anuncio: anuncio
+        });
+        return;
+    } catch (e) {
+        res.status(400).json({
+            error: "Não foi possível encontrar anúncio!"
+        });
+        return;
+    }
+});
+
 router.get('/:id', async (req, res) => {
     const loja = await User.findById(req.params.id);
 
@@ -66,39 +101,5 @@ router.delete('/delete-anuncio', async (req, res) => {
     }
 });
 
-router.get('/anuncios', async (req, res) => {
-    console.log('/lojas/anuncios');
-    try {
-        const anuncios = await Anuncio.find();
-    
-        res.status(200).json({
-            success: "Anúncios encontrados com sucesso!",
-            anuncios: anuncios
-        });
-        return;
-    } catch (e) {
-        res.status(400).json({
-            error: "Não foi possível buscar anúncios!"
-        });      
-        return;
-    }
-});
-
-router.get('/anuncios/:id', async (req, res) => {
-    try {
-        const anuncio = await Anuncio.find({_id: req.params.id});
-
-        res.status(200).json({
-            success: "Anúncio encontrado com sucesso!",
-            anuncio: anuncio
-        });
-        return;
-    } catch (e) {
-        res.status(400).json({
-            error: "Não foi possível encontrar anúncio!"
-        });
-        return;
-    }
-});
 
 module.exports = router;
