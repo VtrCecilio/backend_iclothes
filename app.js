@@ -4,6 +4,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const userRoutes = require('./routes/user');
+const lojaRoutes = require('./routes/loja');
 
 const api = express();
 
@@ -17,6 +18,7 @@ api.get('/', async (req, res) => {
 });
 
 api.use('/users', userRoutes);
+api.use('/lojas', lojaRoutes)
 
 api.use('/*', (req, res) => {
   return res.status(404).json({
