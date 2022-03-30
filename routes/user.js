@@ -12,7 +12,8 @@ router.post('/create-loja', async (req, res) => {
         const token = await user.generateAuthToken();
         res.status(201).json({
             success: "Usuário Loja criado com sucesso!",
-            token: token
+            token: token,
+            id: user._id
         });
     } catch(e){
         console.log(e);
@@ -30,7 +31,8 @@ router.post('/create-cliente', async (req, res) => {
         const token = await user.generateAuthToken();
         res.status(201).json({
             success: "Usuário Cliente criado com sucesso!",
-            token: token
+            token: token,
+            id: user._id
         });
     } catch(e){
         console.log(e);
@@ -46,7 +48,8 @@ router.post('/login', async (req, res) => {
         const token = await user.generateAuthToken();
         res.status(200).json({
             success: "Usuário logado!",
-            token: token
+            token: token,
+            id: user._id
         });
     } catch (e) {
         res.status(400).json({
