@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+
 const anuncioSchema = new mongoose.Schema({
     nomeItem: {
         type: String,
@@ -14,10 +15,16 @@ const anuncioSchema = new mongoose.Schema({
         required: true,
     },
     loja: {
-
+        type: mongoose.Types.ObjectId, 
+        ref: 'User',
+        required: true
     },
     deleted: {
         type: Boolean,
         required: true
     }
 });
+
+const Anuncio = mongoose.model('Anuncio', anuncioSchema);
+
+module.exports = Anuncio;
