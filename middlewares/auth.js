@@ -10,13 +10,14 @@ const Auth = async (req, res, next) => {
         const user = await User.findOne({ _id: decoded._id, 'tokens.token': token});
     
         if (!user){
-            throw new Error();
+            throw new Error('aqui');
         }
 
         req.user = user
 
         next();
     } catch (e) {
+        console.log(e.message);
         res.status(401).send({ error: "Não foi possível autenticar!"});
     }
 };
