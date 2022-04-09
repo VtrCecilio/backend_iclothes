@@ -3,7 +3,7 @@ const router = express.Router();
 const User = require('../models/user');
 const Anuncio = require('../models/anuncio');
 
-const Auth = require('../middlewares/auth');
+const auth = require('../middlewares/auth');
 
 // /lojas
 
@@ -60,7 +60,7 @@ router.get('/:id', async (req, res) => {
     return;
 });
 
-router.post('/create-anuncio', Auth, async (req, res) => {
+router.post('/create-anuncio', auth, async (req, res) => {
     const anuncio = new Anuncio({...req.body, deleted: false});
 
     try {
@@ -83,7 +83,7 @@ router.post('/create-anuncio', Auth, async (req, res) => {
     }
 });
 
-router.delete('/delete-anuncio', Auth, async (req, res) => {
+router.delete('/delete-anuncio', auth, async (req, res) => {
     try {
         const anuncio = await Anuncio.findOne({_id: req.body.id});
         anuncio.deleted = true;

@@ -3,6 +3,7 @@ const router = express.Router();
 const User = require('../models/user');
 
 const jwt = require('jsonwebtoken');
+const auth = require('../middlewares/auth');
 
 router.post('/create-loja', async (req, res) => {
     const user = new User({...req.body, tipoUser: "Loja"});
@@ -58,5 +59,23 @@ router.post('/login', async (req, res) => {
         return;
     }
 })
+
+router.post('/logout', auth, async(req, res) => {
+    try {
+        req.user.tokens = req.user.tokens.filter((token) => {
+            return token.token !== req.token;
+        });
+
+        await req.user.save();
+
+        res.status(200).json({
+            success: "Deslogado com sucesso!"
+        });
+    } catch (e) {
+        res.status(500).json({
+            error: "Não foi possível deslogar!"
+        });
+    }
+});
 
 module.exports = router;

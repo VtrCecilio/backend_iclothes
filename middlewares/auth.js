@@ -2,7 +2,7 @@ const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 
 
-const Auth = async (req, res, next) => {
+const auth = async (req, res, next) => {
     try {
         const token = req.header('Authorization').replace('Bearer ', '');
         const decoded = jwt.verify(token, process.env.JWTSECRET)
@@ -13,7 +13,8 @@ const Auth = async (req, res, next) => {
             throw new Error('aqui');
         }
 
-        req.user = user
+        req.user = user;
+        req.token = token;
 
         next();
     } catch (e) {
@@ -23,4 +24,4 @@ const Auth = async (req, res, next) => {
 };
 
 
-module.exports = Auth;
+module.exports = auth;
