@@ -2,7 +2,7 @@ const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 
 
-const auth = async (req, res, next) => {
+const Auth = async (req, res, next) => {
     try {
         const token = req.header('Authorization').replace('Bearer ', '');
         const decoded = jwt.verify(token, 'thisismycourse')
@@ -22,4 +22,4 @@ const auth = async (req, res, next) => {
 };
 
 
-module.exports = router;
+module.exports = Auth;
