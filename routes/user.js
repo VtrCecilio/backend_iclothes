@@ -44,7 +44,22 @@ router.post('/create-cliente', async (req, res) => {
 });
 
 router.patch('/update-profile', auth, async(req, res) => {
-    
+    const updates = req.body;
+
+    try {
+        await User.updateOne({_id: req.user._id}, {
+            $set:{
+                ...updates
+            }
+        });
+
+        res.status(201).json({success: "Update foi um sucesso!"});
+        return;
+    } catch (e) {
+        console.log(e);
+        res.status(500).json({error: "Não foi possível atualizar os dados pessoais!"});
+        return;
+    }
 });
 
 router.post('/login', async (req, res) => {
