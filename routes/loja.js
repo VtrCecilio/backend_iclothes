@@ -71,15 +71,14 @@ router.post('/anuncios/postar-comentario', auth, async (req, res) => {
 
 router.patch('/anuncios/editar-comentario', auth, async (req, res) => {
     try {
-        const anuncio = await Anuncio.findOne({id: req.body.id});
-
-        if (!anuncio){
-            throw new Error();
-        }
-
-        anuncio.comentarios.push({autor: req.user, texto: req.body.texto});
-
-        await anuncio.save();
+        await Anuncio.updateOne({
+            _id: req.body.anuncioId, "comentarios._id": req.body.comentarioId
+        }, 
+        {
+            $set: {
+                "comentarios.$.texto": req.body.texto
+            }
+        });
 
         res.status(201).json({success: "Comentário editado com sucesso!"});
         return;

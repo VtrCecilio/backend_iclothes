@@ -43,6 +43,10 @@ router.post('/create-cliente', async (req, res) => {
     }
 });
 
+router.patch('/update-profile', auth, async(req, res) => {
+    
+});
+
 router.post('/login', async (req, res) => {
     try {
         const user = await User.findByCredentials(req.body.email, req.body.password);
