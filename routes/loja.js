@@ -49,6 +49,46 @@ router.get('/anuncios/:id', async (req, res) => {
     }
 });
 
+router.post('/anuncios/postar-comentario', auth, async (req, res) => {
+    try {
+        const anuncio = await Anuncio.findOne({id: req.body.id});
+
+        if (!anuncio){
+            throw new Error();
+        }
+
+        anuncio.comentarios.push({autor: req.user, texto: req.body.texto});
+
+        await anuncio.save();
+
+        res.status(201).json({success: "Comentário criado com sucesso!"});
+        return;
+    } catch(e){
+        console.log(e);
+        res.status(500).json({error: "Não foi possível criar comentário!"});
+    }
+});
+
+router.patch('/anuncios/editar-comentario', auth, async (req, res) => {
+    try {
+        const anuncio = await Anuncio.findOne({id: req.body.id});
+
+        if (!anuncio){
+            throw new Error();
+        }
+
+        anuncio.comentarios.push({autor: req.user, texto: req.body.texto});
+
+        await anuncio.save();
+
+        res.status(201).json({success: "Comentário editado com sucesso!"});
+        return;
+    } catch(e){
+        console.log(e);
+        res.status(500).json({error: "Não foi possível editar comentário!"});
+    }
+});
+
 router.get('/:id', async (req, res) => {
     const loja = await User.findById(req.params.id);
 
