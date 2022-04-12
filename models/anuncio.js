@@ -18,6 +18,17 @@ const anuncioSchema = new mongoose.Schema({
         type: String, 
         required: true
     },
+    comentarios: [{
+        autor: {
+            type: mongoose.Types.ObjectId,
+            ref: 'User',
+            required: true
+        },
+        texto: {
+            type: String,
+            required: true
+        }
+    }],
     deleted: {
         type: Boolean,
         required: true
